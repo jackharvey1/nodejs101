@@ -1,5 +1,6 @@
 const os = require("os");
 const fs = require("fs");
+const path = require("path");
 
 const filename = process.env.FILENAME;
 
@@ -9,14 +10,15 @@ process.on("SIGINT", () => {
 });
 
 function main() {
+  const filepath = path.join(__dirname, "..", "data", filename);
   console.info(`Running ${os.platform()} (${os.type()}) on ${os.arch()}`);
 
-  fs.writeFile(filename, 'some information!', (error) => {
+  fs.writeFile(filepath, "some information!", (error) => {
     if (error) {
       console.error(error);
     }
 
-    fs.readFile(filename, "utf-8", (error, data) => {
+    fs.readFile(filepath, "utf-8", (error, data) => {
       if (error) {
         console.error(error);
       } else {
